@@ -678,10 +678,12 @@ public class SocialSharing extends CordovaPlugin {
     final PackageManager pm = webView.getContext().getPackageManager();
     List<ResolveInfo> activityList = pm.queryIntentActivities(shareIntent, 0);
     for (final ResolveInfo app : activityList) {
+      if(packageName.contains("com.twitter.android") || packageName.contains("com.linkedin.android")){
       if ((app.activityInfo.packageName).contains(appPackageName)) {
         if (appName == null || (app.activityInfo.name).contains(appName)) {
           return app.activityInfo;
         }
+      }
       }
     }
     // no matching app found
