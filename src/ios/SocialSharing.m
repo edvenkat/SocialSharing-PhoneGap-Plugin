@@ -50,16 +50,7 @@ static NSString *const kShareOptionIPadCoordinates = @"iPadCoordinates";
 - (void)share:(CDVInvokedUrlCommand*)command {
 	NSString *subject = [command.arguments objectAtIndex:1];
 	if([subject isEqualToString:@"customapp"]) {
-		[self OpenSharedApps:command
-			  withOptions:@{
-					kShareOptionMessage: [command.arguments objectAtIndex:0],
-					kShareOptionSubject: [command.arguments objectAtIndex:1],
-					kShareOptionFiles: [command.arguments objectAtIndex:2],
-					kShareOptionUrl: [command.arguments objectAtIndex:3],
-					kShareOptionIPadCoordinates: [command.arguments objectAtIndex:4]
-				      }
-		    isBooleanResponse:YES
-		];
+		[self OpenSharedApps:command];
 	} else {
 		[self shareInternal:command
 			  withOptions:@{
