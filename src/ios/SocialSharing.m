@@ -48,16 +48,31 @@ static NSString *const kShareOptionIPadCoordinates = @"iPadCoordinates";
 }
 
 - (void)share:(CDVInvokedUrlCommand*)command {
-  [self shareInternal:command
-          withOptions:@{
-                        kShareOptionMessage: [command.arguments objectAtIndex:0],
-                        kShareOptionSubject: [command.arguments objectAtIndex:1],
-                        kShareOptionFiles: [command.arguments objectAtIndex:2],
-                        kShareOptionUrl: [command.arguments objectAtIndex:3],
-                        kShareOptionIPadCoordinates: [command.arguments objectAtIndex:4]
-                      }
-    isBooleanResponse:YES
-];
+	NSString *subject = [command.arguments objectAtIndex:1];
+	if([category isEqualToString:@"customapp"]) {
+		[self OpenSharedApps:command
+			  withOptions:@{
+					kShareOptionMessage: [command.arguments objectAtIndex:0],
+					kShareOptionSubject: [command.arguments objectAtIndex:1],
+					kShareOptionFiles: [command.arguments objectAtIndex:2],
+					kShareOptionUrl: [command.arguments objectAtIndex:3],
+					kShareOptionIPadCoordinates: [command.arguments objectAtIndex:4]
+				      }
+		    isBooleanResponse:YES
+		];
+	} else {
+		[self shareInternal:command
+			  withOptions:@{
+					kShareOptionMessage: [command.arguments objectAtIndex:0],
+					kShareOptionSubject: [command.arguments objectAtIndex:1],
+					kShareOptionFiles: [command.arguments objectAtIndex:2],
+					kShareOptionUrl: [command.arguments objectAtIndex:3],
+					kShareOptionIPadCoordinates: [command.arguments objectAtIndex:4]
+				      }
+		    isBooleanResponse:YES
+		];
+	} 
+  
 }
 
 - (void)shareWithOptions:(CDVInvokedUrlCommand*)command {
