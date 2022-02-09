@@ -24,5 +24,5 @@
 - (void)shareViaInstagram:(CDVInvokedUrlCommand*)command;
 
 - (void)saveToPhotoAlbum:(CDVInvokedUrlCommand*)command;
-
+- (void)OpenSharedApps:(CDVInvokedUrlCommand*)command;
 @end
