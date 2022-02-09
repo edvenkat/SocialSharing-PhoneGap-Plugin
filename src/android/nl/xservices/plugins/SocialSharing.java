@@ -81,7 +81,13 @@ public class SocialSharing extends CordovaPlugin {
       callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
       return true;
     } else if (ACTION_SHARE_EVENT.equals(action)) {
-      return doSendIntent(callbackContext, args.getString(0), args.getString(1), args.getJSONArray(2), args.getString(3), null, null, false, true);
+      if(args.getString(1).equals("customapp")) {
+        OpenSharedApps();
+      } else {
+        return doSendIntent(callbackContext, args.getString(0), args.getString(1), args.getJSONArray(2), args.getString(3), null, null, false, true);
+      }
+        
+      
     } else if (ACTION_SHARE_WITH_OPTIONS_EVENT.equals(action)) {
       return shareWithOptions(callbackContext, args.getJSONObject(0));
     } else if (ACTION_SHARE_VIA_TWITTER_EVENT.equals(action)) {
@@ -126,6 +132,39 @@ public class SocialSharing extends CordovaPlugin {
     }
   }
 
+  private void OpenSharedApps() {
+    List<Intent> targetShareIntents=new ArrayList<Intent>();
+    Intent shareIntent=new Intent();
+    shareIntent.setAction(Intent.ACTION_SEND);
+    shareIntent.setType("text/plain");
+    List<ResolveInfo> resInfos= cordova.getActivity().getPackageManager().queryIntentActivities(shareIntent, 0);
+    if(!resInfos.isEmpty()){
+      System.out.println("Have package");
+      for(ResolveInfo resInfo : resInfos){
+      String packageName=resInfo.activityInfo.packageName;
+      Log.i("Package Name", packageName);
+      if(packageName.contains("com.twitter.android") || packageName.contains("com.linkedin.android")){
+        Intent intent=new Intent();
+        intent.setComponent(new ComponentName(packageName, resInfo.activityInfo.name));
+        intent.setAction(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, "Text");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
+        intent.setPackage(packageName);
+        targetShareIntents.add(intent);
+      }
+    }
+    if(!targetShareIntents.isEmpty()){
+      System.out.println("Have Intent");
+      Intent chooserIntent=Intent.createChooser(targetShareIntents.remove(0), "Choose app to share");
+      chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetShareIntents.toArray(new Parcelable[]{}));
+      cordova.getActivity().startActivity(chooserIntent);
+     }else{
+      System.out.println("Do not Have Intent");
+      //showDialaog(this);
+     }
+   }
+  }
   private boolean isEmailAvailable() {
     final Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "someone@domain.com", null));
     return cordova.getActivity().getPackageManager().queryIntentActivities(intent, 0).size() > 0;
