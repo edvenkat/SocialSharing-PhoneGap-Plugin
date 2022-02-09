@@ -867,7 +867,8 @@ static NSString *const kShareOptionIPadCoordinates = @"iPadCoordinates";
 	NSString *textToShare = @"your text";   
 	UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[textToShare] applicationActivities:nil];    
 	//Exclude whichever are not relevant    
-	activityVC.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypePrint, UIActivityTypeAddToReadingList, UIActivityTypeSaveToCameraRoll, UIActivityTypeOpenInIBooks, @"com.apple.mobilenotes.SharingExtension", @"com.apple.reminders.RemindersEditorExtension"];    
+	//activityVC.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypePrint, UIActivityTypeAddToReadingList, UIActivityTypeSaveToCameraRoll, UIActivityTypeOpenInIBooks, @"com.apple.mobilenotes.SharingExtension", @"com.apple.reminders.RemindersEditorExtension"];    
+	activityVC.excludedActivityTypes = @[UIActivityTypeAirDrop, UIActivityTypeAddToReadingList, UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypeMail, UIActivityTypeMessage, UIActivityTypeOpenInIBooks, UIActivityTypePostToTencentWeibo, UIActivityTypePostToVimeo, UIActivityTypePostToWeibo, UIActivityTypePrint]
 	[self.viewController presentViewController:activityVC animated:YES completion:nil];    
 	activityVC.completionHandler = ^(NSString *activityType, BOOL completed) {        
 		if (completed) {           
