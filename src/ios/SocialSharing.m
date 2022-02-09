@@ -856,6 +856,25 @@ static NSString *const kShareOptionIPadCoordinates = @"iPadCoordinates";
     CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [self.commandDelegate sendPluginResult:result callbackId: self.command.callbackId];
   }
+  
+- (void)OpenSharedApps:(CDVInvokedUrlCommand*)command {    
+	NSString *textToShare = @"your text";   
+	UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[textToShare] applicationActivities:nil];    
+	//Exclude whichever are not relevant    
+	activityVC.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypePrint, UIActivityTypeAddToReadingList, UIActivityTypeSaveToCameraRoll, UIActivityTypeOpenInIBooks, @"com.apple.mobilenotes.SharingExtension", @"com.apple.reminders.RemindersEditorExtension"];    
+	[self.viewController presentViewController:activityVC animated:YES completion:nil];    
+	activityVC.completionHandler = ^(NSString *activityType, BOOL completed) {        
+		if (completed) {           
+			CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Success"];           
+			[self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];        
+		} else {            
+			CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Calling error"];            
+			[self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];        
+		}    
+	};
+}
+
+
 }
 
 @end
