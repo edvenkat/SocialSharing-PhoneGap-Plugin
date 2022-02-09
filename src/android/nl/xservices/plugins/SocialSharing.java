@@ -39,6 +39,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import android.os.Parcelable
 
 public class SocialSharing extends CordovaPlugin {
 
