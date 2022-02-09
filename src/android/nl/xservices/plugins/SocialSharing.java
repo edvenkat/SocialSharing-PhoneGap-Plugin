@@ -145,7 +145,7 @@ public class SocialSharing extends CordovaPlugin {
       for(ResolveInfo resInfo : resInfos){
       String packageName=resInfo.activityInfo.packageName;
       Log.i("Package Name", packageName);
-      if(packageName.contains("com.twitter.android") || packageName.contains("com.linkedin.android")){
+      if(packageName.contains("com.facebook.katana") || packageName.contains("com.linkedin.android")){
         Intent intent=new Intent();
         intent.setComponent(new ComponentName(packageName, resInfo.activityInfo.name));
         intent.setAction(Intent.ACTION_SEND);
