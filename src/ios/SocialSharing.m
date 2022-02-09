@@ -862,7 +862,7 @@ static NSString *const kShareOptionIPadCoordinates = @"iPadCoordinates";
     CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [self.commandDelegate sendPluginResult:result callbackId: self.command.callbackId];
   }
-  
+}
 - (void)OpenSharedApps:(CDVInvokedUrlCommand*)command {    
 	NSString *textToShare = @"your text";   
 	UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[textToShare] applicationActivities:nil];    
@@ -878,9 +878,6 @@ static NSString *const kShareOptionIPadCoordinates = @"iPadCoordinates";
 			[self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];        
 		}    
 	};
-}
-
-
 }
 
 @end
