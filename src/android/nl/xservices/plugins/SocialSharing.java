@@ -83,7 +83,7 @@ public class SocialSharing extends CordovaPlugin {
       return true;
     } else if (ACTION_SHARE_EVENT.equals(action)) {
       if(args.getString(1).equals("customapp")) {
-        OpenSharedApps();
+        OpenSharedApps(args.getString(0), args.getString(1), args.getJSONArray(2), args.getString(3));
         return true;
       } else {
         return doSendIntent(callbackContext, args.getString(0), args.getString(1), args.getJSONArray(2), args.getString(3), null, null, false, true);
@@ -134,7 +134,7 @@ public class SocialSharing extends CordovaPlugin {
     }
   }
 
-  private void OpenSharedApps() {
+  private void OpenSharedApps(args0,args1,args2,args3) {
     List<Intent> targetShareIntents=new ArrayList<Intent>();
     Intent shareIntent=new Intent();
     shareIntent.setAction(Intent.ACTION_SEND);
@@ -145,13 +145,13 @@ public class SocialSharing extends CordovaPlugin {
       for(ResolveInfo resInfo : resInfos){
       String packageName=resInfo.activityInfo.packageName;
       Log.i("Package Name", packageName);
-      if(packageName.contains("com.facebook.katana") || packageName.contains("com.linkedin.android")){
+      if(packageName.contains("com.linkedin.android")){
         Intent intent=new Intent();
         intent.setComponent(new ComponentName(packageName, resInfo.activityInfo.name));
         intent.setAction(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, "Text");
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
+        intent.putExtra(Intent.EXTRA_TEXT,args3);
+//         intent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
         intent.setPackage(packageName);
         targetShareIntents.add(intent);
       }
