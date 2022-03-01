@@ -384,8 +384,9 @@ public class SocialSharing extends CordovaPlugin {
                   passedActivityName != null ? passedActivityName : activity.name));
 
               if(packageName=="com.linkedin.android") {
-                sendIntent.setClassName("com.linkedin.android",
-                    "com.linkedin.android.publishing.sharing.ShareActivity");
+                //sendIntent.setClassName("com.linkedin.android","com.linkedin.android.publishing.sharing.ShareActivity");
+                
+                 sendIntent.setClassName("com.linkedin.android","com.linkedin.android.home.UpdateStatusActivity");
               }
               // as an experiment for #300 we're explicitly running it on the ui thread here
               cordova.getActivity().runOnUiThread(new Runnable() {
