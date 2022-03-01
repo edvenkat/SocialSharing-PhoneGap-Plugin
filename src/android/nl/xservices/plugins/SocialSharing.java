@@ -83,7 +83,7 @@ public class SocialSharing extends CordovaPlugin {
       return true;
     } else if (ACTION_SHARE_EVENT.equals(action)) {
       if(args.getString(1).equals("customapp")) {
-        OpenSharedApps(args.getString(0), args.getString(1), args.getJSONArray(2), args.getString(3));
+        OpenSharedApps(args.getString(0), args.getString(1), args.getString(2), args.getString(3));
         return true;
       } else {
         return doSendIntent(callbackContext, args.getString(0), args.getString(1), args.getJSONArray(2), args.getString(3), null, null, false, true);
