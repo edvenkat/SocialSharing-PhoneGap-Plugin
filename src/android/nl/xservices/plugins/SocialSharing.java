@@ -134,7 +134,7 @@ public class SocialSharing extends CordovaPlugin {
     }
   }
 
-  private void OpenSharedApps(args0,args1,args2,args3) {
+  private void OpenSharedApps(final String args0, final String args1, final String args2, final String args3) {
     List<Intent> targetShareIntents=new ArrayList<Intent>();
     Intent shareIntent=new Intent();
     shareIntent.setAction(Intent.ACTION_SEND);
